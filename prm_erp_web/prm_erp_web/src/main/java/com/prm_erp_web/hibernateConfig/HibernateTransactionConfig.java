@@ -67,7 +67,6 @@ public class HibernateTransactionConfig {
         properties.put("hibernate.id.new_generator_mappings", env.getProperty("hibernate.id.new_generator_mappings"));
         properties.put("hibernate.show_sql", env.getProperty("hibernate.show_sql"));
         properties.put("hibernate.format_sql", env.getProperty("hibernate.format_sql"));
-        properties.put("hibernate.hbm2ddl.jdbc_metadata_extraction_strategy", env.getProperty("hibernate.hbm2ddl.jdbc_metadata_extraction_strategy"));
         return properties;
     }
 }

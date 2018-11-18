@@ -130,7 +130,7 @@ public class PersonProxy implements Serializable {
      */
     public void setIsUserCreate(Boolean isUserCreate) {
         this.isUserCreate = isUserCreate;
-        this.isUserCreateStr = null == isUserCreate ? "Is not created" : isUserCreate ? "Is created" : "Is not created";
+        this.isUserCreateStr = null == isUserCreate ? "No" : isUserCreate ? "Yes" : "No";
 
     }
 
@@ -146,7 +146,7 @@ public class PersonProxy implements Serializable {
      */
     public void setIsActive(Boolean isActive) {
         this.isActive = isActive;
-        this.isActiveStr = null == isActive ? "Disabled" : isActive ? "Enabled" : "Disabled";
+        this.isActiveStr = null == isActive ? "No" : isActive ? "Yes" : "No";
     }
 
     /**

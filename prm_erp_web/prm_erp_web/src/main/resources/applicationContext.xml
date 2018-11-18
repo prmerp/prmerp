@@ -34,9 +34,9 @@
     <bean id="txManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
         <property name="sessionFactory" ref="localSessionFactory" />
     </bean>
-<!--    <bean id="hibernateTemplate" class="org.springframework.orm.hibernate5.HibernateTemplate">
+    <bean id="ht" class="org.springframework.orm.hibernate5.HibernateTemplate">
         <constructor-arg name="sessionFactory" ref="localSessionFactory"/>  
-    </bean>-->
+    </bean>
     <interceptors>
         <interceptor>
             <mapping path="/home" />

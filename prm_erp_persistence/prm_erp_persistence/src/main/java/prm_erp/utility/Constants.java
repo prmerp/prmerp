@@ -25,10 +25,6 @@ public final class Constants {
 
         public static long DEFAULT_EXPIRYTIME = 5000 * 60;
     }
-    public final static class DateAndTime {
-
-        public static String DEFAULT_DATE_FORMATE = "MM-dd_YYYY";
-    }
 
     public final static class Modules {
 
