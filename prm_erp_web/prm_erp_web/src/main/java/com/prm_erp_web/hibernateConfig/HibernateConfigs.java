@@ -10,18 +10,23 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.orm.hibernate5.HibernateTemplate;
+import org.springframework.web.context.WebApplicationContext;
 
 @Configuration
 public class HibernateConfigs {
 
     @Autowired
-    private HibernateTemplate ht;
+    private HibernateTemplate hibernateTemplate;
 
     @Bean
+    @Scope(value = WebApplicationContext.SCOPE_REQUEST, proxyMode = ScopedProxyMode.TARGET_CLASS)
     public Session session() {
-        SessionFactory sessionFactory = ht.getSessionFactory();
+        SessionFactory sessionFactory = hibernateTemplate.getSessionFactory();
         Session openSession = sessionFactory.openSession();
+        openSession.getTransaction().begin();
         return openSession;
     }
 

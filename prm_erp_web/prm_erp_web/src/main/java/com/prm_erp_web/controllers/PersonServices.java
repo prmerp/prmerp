@@ -82,7 +82,22 @@ public class PersonServices {
         } catch (Exception e) {
             try {
                 LOG.log(Level.INFO, e.getMessage());
+                return new HTTPHelper(HttpStatus.INTERNAL_SERVER_ERROR.value(), null, "Internal Server Error");
+            } catch (JsonProcessingException ex) {
+                Logger.getLogger(PersonServices.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return null;
+    }
+    @RequestMapping(value = "/changeStatusPerson", method = RequestMethod.POST)
+    public HTTPHelper changeStatusPerson(@RequestBody PersonProxy personProxy) {
+        try {
+            return new HTTPHelper(HttpStatus.OK.value(), personBean.changeStatusPerson(personProxy), "Person Save Successfully");
+        } catch (Exception e) {
+            try {
                 e.printStackTrace();
+                
+                LOG.log(Level.WARNING, e.getMessage());
                 return new HTTPHelper(HttpStatus.INTERNAL_SERVER_ERROR.value(), null, "Internal Server Error");
             } catch (JsonProcessingException ex) {
                 Logger.getLogger(PersonServices.class.getName()).log(Level.SEVERE, null, ex);

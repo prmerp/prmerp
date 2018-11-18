@@ -11,11 +11,11 @@ import com.prm_erp_web.entityManager.LogoMaster;
 import com.prm_erp_web.entityManager.Person;
 import com.prm_erp_web.entityManager.PersonContactMap;
 import com.prm_erp_web.entityManager.PersonDocsMap;
+import com.prm_erp_web.hibernateConfig.HibernateConfigs;
 import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
@@ -119,7 +119,30 @@ public class PersonBean {
         person.setPersonContactMapCollection(ListUtility.isNullOrEmpty(personContactMaps) ? null : personContactMaps);
 
         personProxy.setId(person.getId());
+        HibernateConfigs.commit(session);
         return personProxy;
+    }
+
+    @Transactional
+    public Boolean changeStatusPerson(PersonProxy personProxy) {
+        if (null == personProxy) {
+            return Boolean.FALSE;
+        }
+        Long id = personProxy.getId();
+        if (null == id) {
+            return Boolean.FALSE;
+        }
+        List resultList = session.createQuery("SELECT p.id FROM Person p where p.id = :id").setParameter("id", id).getResultList();
+        Long isPresent = ListUtility.getLongObjectFromList(resultList);
+        if (null == isPresent) {
+            return Boolean.FALSE;
+        }
+        session.createQuery("UPDATE Person p SET p.isActive = :value,p.updatedDate=:date where p.id=:id")
+                .setParameter("id", id)
+                .setParameter("value", personProxy.getIsActive())
+                .setParameter("date", System.currentTimeMillis()).executeUpdate();
+        HibernateConfigs.commit(session);
+        return Boolean.TRUE;
     }
 
     public List<PersonProxy> getList() {

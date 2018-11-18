@@ -63,7 +63,7 @@ public class Person implements Serializable, UserTrackManagerMaster {
     @Size(min = 1, max = 25)
     @Column(name = "first_name", nullable = false, length = 25)
     private String firstName;
-    @Column(name = "first_name", nullable = true, length = 25)
+    @Column(name = "email", nullable = true, length = 25)
     private String email;
     @Size(max = 25)
     @Column(name = "last_name", length = 25)
